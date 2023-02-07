@@ -67,22 +67,21 @@ namespace WhizKids.Repositories
                     using (SqlCommand cmd = conn.CreateCommand())
                     {
                         cmd.CommandText = @"
-                           SELECT u.Id, u.FirebaseUserId, u.FirstName, u.LastName, u.Address, u.PhoneNumber,
-                           FROM UserProfile u
-                           LEFT JOIN UserStudent us ON u.Id = us.UserProfileId
-                           LEFT JOIN Student s ON s.Id = us.StudentId
-                           WHERE u.Id = @id";
+                           SELECT Id, FirebaseUserId, FirstName, LastName, Address, PhoneNumber, IsAdmin, StudentId
+                           FROM UserProfile 
+                           
+                           WHERE Id = @id";
 
-                        cmd.Parameters.AddWithValue("@Id", id);
+                        cmd.Parameters.AddWithValue("@id", id);
 
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            UserProfile user = null;
+                            UserProfile userProfile = null;
                             while (reader.Read())
                             {
-                                if (user == null)
+                                if (userProfile == null)
                                 {
-                                    user = new UserProfile
+                                    userProfile = new UserProfile
                                     {
                                         Id = reader.GetInt32(reader.GetOrdinal("Id")),
                                         FirebaseUserId = reader.GetString(reader.GetOrdinal("FirebaseUserId")),
@@ -91,10 +90,12 @@ namespace WhizKids.Repositories
                                         Address = reader.GetString(reader.GetOrdinal("Address")),
                                         PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber")),
                                         IsAdmin = reader.GetInt32(reader.GetOrdinal("IsAdmin")),
+                                        StudentId = reader.GetInt32(reader.GetOrdinal("StudentId")),
+
                                     };
                                 }
                             }
-                            return user;
+                            return userProfile;
                         }
                     }
                 }
@@ -143,6 +144,7 @@ namespace WhizKids.Repositories
                                 Address = @address, 
                                 PhoneNumber = @phonenumber,
                                 IsAdmin = @isadmin,
+                                StudentId = @studentid
                             WHERE Id = @id";
 
                         cmd.Parameters.AddWithValue("@firebaseuserid", user.FirebaseUserId);
@@ -151,6 +153,7 @@ namespace WhizKids.Repositories
                         cmd.Parameters.AddWithValue("@address", user.Address);
                         cmd.Parameters.AddWithValue("@phonenumber", user.PhoneNumber);
                         cmd.Parameters.AddWithValue("@isadmin", user.IsAdmin);
+                    cmd.Parameters.AddWithValue("@studentid", user.StudentId);
                         cmd.Parameters.AddWithValue("@id", user.Id);
 
                         cmd.ExecuteNonQuery();

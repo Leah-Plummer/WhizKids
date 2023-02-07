@@ -28,5 +28,7 @@ namespace WhizKids.Models
 
         public int IsAdmin { get; set; }
 
+        public int StudentId { get; set; }
+
     }
 }

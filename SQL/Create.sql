@@ -26,6 +26,7 @@ CREATE TABLE [UserProfile] (
 	[Address] VARCHAR(255) NOT NULL,
 	PhoneNumber VARCHAR(55) NOT NULL,
 	IsAdmin INTEGER NOT NULL,
+	StudentId INTEGER NOT NULL,
     CONSTRAINT UQ_FirebaseUserId UNIQUE(FirebaseUserId)
 );
 

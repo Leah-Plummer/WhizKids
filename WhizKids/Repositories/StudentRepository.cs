@@ -65,8 +65,8 @@ namespace WhizKids.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                                        SELECT Id, FirstName, LastName, Enrolled
-                                        FROM Student
+                                        SELECT s.Id, s.FirstName, s.LastName, s.Enrolled
+                                        FROM Student s
                                         WHERE Id = @id";
 
                     cmd.Parameters.AddWithValue("@id", id);

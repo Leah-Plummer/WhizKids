@@ -3,6 +3,7 @@ using WhizKids.Repositories;
 using System.Collections.Generic;
 using WhizKids.Models;
 using System;
+using WhizKids.Models.ViewModels;
 
 namespace WhizKids.Controllers
 {
@@ -10,9 +11,11 @@ namespace WhizKids.Controllers
     {
 
         private readonly IStudentRepository _studentRepo;
-        public StudentController(IStudentRepository studentRepository)
+        private readonly IUserProfileRepository _userProfileRepo;
+        public StudentController(IStudentRepository studentRepository, IUserProfileRepository userProfileRepository)
         {
             _studentRepo = studentRepository;
+            _userProfileRepo = userProfileRepository;
         }
 
         // GET: Students
@@ -26,14 +29,21 @@ namespace WhizKids.Controllers
         // GET:Students/Details/5
         public ActionResult Details(int id)
         {
-            Student student = _studentRepo.GetStudentById(id);
+            UserProfile userProfile = _userProfileRepo.GetUserProfileById(id);
+            Student student = _studentRepo.GetStudentById(userProfile.StudentId);
 
             if (student == null)
             {
                 return NotFound();
             }
 
-            return View(student);
+            StudentProfileViewModel spvm = new StudentProfileViewModel()
+            {
+                UserProfile = userProfile,
+                Student = student
+            };
+
+            return View(spvm);
         }
 
         // GET: StudentsController/Create
