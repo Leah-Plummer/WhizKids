@@ -31,7 +31,7 @@ namespace WhizKids.Models
 
         public int IsAdmin { get; set; }
 
-        public List<Student> StudentId { get; set; }
+        public int StudentId { get; set; }
 
     }
 }

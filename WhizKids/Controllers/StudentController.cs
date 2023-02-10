@@ -29,8 +29,8 @@ namespace WhizKids.Controllers
         // GET:Students/Details/5
         public ActionResult Details(int id)
         {
-            List<UserProfile> userProfile = _userProfileRepo.GetUserProfilesById(id);
-            Student student = _studentRepo.GetStudentById(userProfile.StudentId);
+            
+            Student student = _studentRepo.GetStudentById(id);
 
             if (student == null)
             {
@@ -39,7 +39,7 @@ namespace WhizKids.Controllers
 
             StudentProfileViewModel spvm = new StudentProfileViewModel()
             {
-                UserProfile = userProfile,
+                
                 Student = student
             };
 

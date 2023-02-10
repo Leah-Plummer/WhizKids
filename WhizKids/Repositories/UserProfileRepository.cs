@@ -216,7 +216,7 @@ namespace WhizKids.Repositories
                                 Address = reader.GetString(reader.GetOrdinal("Address")),
                                 PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber")),
                                 IsAdmin = reader.GetInt32(reader.GetOrdinal("IsAdmin")),
-                                //StudentId = reader.GetInt32(reader.GetOrdinal("StudentId")),
+                                StudentId = reader.GetInt32(reader.GetOrdinal("StudentId")),
                             };                           
 
                             users.Add(user);
