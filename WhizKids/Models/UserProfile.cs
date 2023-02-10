@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace WhizKids.Models
 {
@@ -17,6 +18,8 @@ namespace WhizKids.Models
         //[Required(ErrorMessage = "add a last name...")]
         //[MaxLength(35)]
         public string LastName { get; set; }
+
+        public string Email { get; set; }
 
         //[Required]
         //[StringLength(55, MinimumLength = 5)]

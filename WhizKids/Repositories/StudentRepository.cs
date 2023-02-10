@@ -92,6 +92,10 @@ namespace WhizKids.Repositories
             }
         }
 
+
+
+
+
         public void AddStudent(Student student)
         {
             using (SqlConnection conn = Connection)
