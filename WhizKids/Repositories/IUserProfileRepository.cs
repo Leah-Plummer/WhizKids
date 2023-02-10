@@ -10,6 +10,6 @@ namespace WhizKids.Repositories
         void AddUserProfile(UserProfile user);
         void UpdateUserProfile(UserProfile user);
         void DeleteUserProfile(int id);
-        UserProfile GetByFirebaseUserId(string FirebaseUserId);
+        UserProfile GetByFirebaseUserId(string firebaseUserId);
     }
 }

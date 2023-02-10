@@ -42,9 +42,8 @@ namespace WhizKids.Auth
                 return View(credentials);
             }
 
-            
-           var up = System.Security.Principal.WindowsIdentity.GetCurrent();
-            var userProfile = _userProfileRepository.GetByFirebaseUserId(up.FirebaseUserId);
+
+            var userProfile = _userProfileRepository.GetByFirebaseUserId(fbUser.FirebaseUserId);
             if (userProfile == null)
             {
                 ModelState.AddModelError(string.Empty, "Unable to Login.");
@@ -82,7 +81,7 @@ namespace WhizKids.Auth
                 Email = fbUser.Email,
                 FirebaseUserId = fbUser.FirebaseUserId,
             };
-            _userProfileRepository.Add(newUserProfile);
+            _userProfileRepository.AddUserProfile(newUserProfile);
 
             await LoginToApp(newUserProfile);
 
