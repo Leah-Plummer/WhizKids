@@ -42,7 +42,9 @@ namespace WhizKids.Auth
                 return View(credentials);
             }
 
-            var userProfile = _userProfileRepository.GetByFirebaseUserId(fbUser.FirebaseUserId);
+            
+           var up = System.Security.Principal.WindowsIdentity.GetCurrent();
+            var userProfile = _userProfileRepository.GetByFirebaseUserId(up.FirebaseUserId);
             if (userProfile == null)
             {
                 ModelState.AddModelError(string.Empty, "Unable to Login.");
