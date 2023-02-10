@@ -33,5 +33,7 @@ namespace WhizKids.Models
 
         public int StudentId { get; set; }
 
+        
+
     }
 }

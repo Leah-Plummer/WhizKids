@@ -416,3 +416,5 @@ C:\Users\purpl\workspace\csharp\WhizKids\WhizKids\obj\Debug\net5.0\Razor\Views\S
 C:\Users\purpl\workspace\csharp\WhizKids\WhizKids\obj\Debug\net5.0\Razor\Views\Student\Create.cshtml.g.cs
 C:\Users\purpl\workspace\csharp\WhizKids\WhizKids\obj\Debug\net5.0\Razor\Views\Student\Details.cshtml.g.cs
 C:\Users\purpl\workspace\csharp\WhizKids\WhizKids\obj\Debug\net5.0\Razor\Views\UserProfile\Edit.cshtml.g.cs
+C:\Users\purpl\workspace\csharp\WhizKids\WhizKids\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs
+C:\Users\purpl\workspace\csharp\WhizKids\WhizKids\obj\Debug\net5.0\Razor\Views\Account\Register.cshtml.g.cs
