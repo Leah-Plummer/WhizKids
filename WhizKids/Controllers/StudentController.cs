@@ -29,7 +29,7 @@ namespace WhizKids.Controllers
         // GET:Students/Details/5
         public ActionResult Details(int id)
         {
-            UserProfile userProfile = _userProfileRepo.GetUserProfileById(id);
+            List<UserProfile> userProfile = _userProfileRepo.GetUserProfilesById(id);
             Student student = _studentRepo.GetStudentById(userProfile.StudentId);
 
             if (student == null)

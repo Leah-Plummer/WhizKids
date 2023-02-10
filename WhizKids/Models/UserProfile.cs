@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace WhizKids.Models
 {
@@ -18,6 +19,8 @@ namespace WhizKids.Models
         //[MaxLength(35)]
         public string LastName { get; set; }
 
+        public string Email { get; set; }
+
         //[Required]
         //[StringLength(55, MinimumLength = 5)]
         public string Address { get; set; }
@@ -28,7 +31,7 @@ namespace WhizKids.Models
 
         public int IsAdmin { get; set; }
 
-        public int StudentId { get; set; }
+        public List<Student> StudentId { get; set; }
 
     }
 }

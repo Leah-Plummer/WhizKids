@@ -67,7 +67,7 @@ namespace WhizKids.Repositories
                     using (SqlCommand cmd = conn.CreateCommand())
                     {
                         cmd.CommandText = @"
-                           SELECT Id, FirebaseUserId, FirstName, LastName, Address, PhoneNumber, IsAdmin, StudentId
+                           SELECT Id, FirebaseUserId, FirstName, LastName, Email, Address, PhoneNumber, IsAdmin, StudentId
                            FROM UserProfile 
                            
                            WHERE Id = @id";
@@ -87,10 +87,11 @@ namespace WhizKids.Repositories
                                         FirebaseUserId = reader.GetString(reader.GetOrdinal("FirebaseUserId")),
                                         FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
                                         LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                        Email = reader.GetString(reader.GetOrdinal("Email")),
                                         Address = reader.GetString(reader.GetOrdinal("Address")),
                                         PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber")),
                                         IsAdmin = reader.GetInt32(reader.GetOrdinal("IsAdmin")),
-                                        StudentId = reader.GetInt32(reader.GetOrdinal("StudentId")),
+                                        //StudentId = reader.GetInt32(reader.GetOrdinal("StudentId")),
 
                                     };
                                 }
@@ -180,6 +181,92 @@ namespace WhizKids.Repositories
                     }
                 }
             }
+
+        public List<UserProfile> GetUserProfilesById(int userProfileId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                SELECT Id, FirebaseUserId, FirstName, LastName, Email, Address, PhoneNumber, IsAdmin, StudentId
+                           FROM UserProfile 
+                           
+                           WHERE Id = @id";
+                    
+
+                    cmd.Parameters.AddWithValue("@userProfileId", userProfileId);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+
+                        List<UserProfile> users = new List<UserProfile>();
+
+                        while (reader.Read())
+                        {
+                            UserProfile user = new UserProfile()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                FirebaseUserId = reader.GetString(reader.GetOrdinal("FirebaseUserId")),
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                Email = reader.GetString(reader.GetOrdinal("Email")),
+                                Address = reader.GetString(reader.GetOrdinal("Address")),
+                                PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber")),
+                                IsAdmin = reader.GetInt32(reader.GetOrdinal("IsAdmin")),
+                                //StudentId = reader.GetInt32(reader.GetOrdinal("StudentId")),
+                            };                           
+
+                            users.Add(user);
+                        }
+
+                        return users;
+                    }
+                }
+            }
         }
+
+        public List<UserProfile> GetAllUserStudentsProfiles()
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                        SELECT u.Id, u.FirebaseUserId, u.FirstName, u.LastName, u.Email, u.PhoneNumber, u.Address, u.IsAdmin
+                                        FROM UserProfile u
+                                        LEFT JOIN UserStudent us ON us.UserProfileId = u.Id
+                                        LEFT JOIN Student s ON us.StudentId = s.Id
+                    ";
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        List<UserProfile> users = new List<UserProfile>();
+                        while (reader.Read())
+                        {
+                            UserProfile user = new UserProfile
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                FirebaseUserId = reader.GetString(reader.GetOrdinal("FirebaseUserId")),
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                Email = reader.GetString(reader.GetOrdinal("Email")),
+                                PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber")),
+                                Address = reader.GetString(reader.GetOrdinal("Address")),
+                                IsAdmin = reader.GetInt32(reader.GetOrdinal("IsAdmin")),
+                            };
+
+                            users.Add(user);
+                        }
+
+                        return users;
+                    }
+                }
+            }
+        }
+    }
     }
 
