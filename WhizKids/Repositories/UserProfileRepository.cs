@@ -135,10 +135,10 @@ namespace WhizKids.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                           SELECT Id, FirebaseUserId, FirstName, LastName, Address, PhoneNumber, IsAdmin, StudentId
-                           FROM UserProfile 
+                           SELECT Id, FirebaseUserId, FirstName, LastName, Email, Address, PhoneNumber, IsAdmin, StudentId
+                           FROM UserProfile  
                            
-                           WHERE Id = @id";
+                           WHERE FirebaseUserId = @firebaseUserid";
 
                     cmd.Parameters.AddWithValue("@firebaseUserId", firebaseUserId);
 
@@ -155,10 +155,11 @@ namespace WhizKids.Repositories
                                     FirebaseUserId = reader.GetString(reader.GetOrdinal("FirebaseUserId")),
                                     FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
                                     LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                    Email = reader.GetString(reader.GetOrdinal("Email")),
                                     Address = reader.GetString(reader.GetOrdinal("Address")),
                                     PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber")),
                                     IsAdmin = reader.GetInt32(reader.GetOrdinal("IsAdmin")),
-                                    StudentId = reader.GetInt32(reader.GetOrdinal("StudentId")),
+                                    //StudentId = reader.GetInt32(reader.GetOrdinal("StudentId")),
 
                                 };
                             }
