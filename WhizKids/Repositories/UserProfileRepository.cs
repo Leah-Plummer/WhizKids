@@ -127,8 +127,50 @@ namespace WhizKids.Repositories
                     }
                 }
             }
+        public UserProfile GetByFirebaseUserId(string firebaseUserId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                           SELECT Id, FirebaseUserId, FirstName, LastName, Email, Address, PhoneNumber, IsAdmin, StudentId
+                           FROM UserProfile  
+                           
+                           WHERE FirebaseUserId = @firebaseUserid";
 
-            public void UpdateUserProfile(UserProfile user)
+                    cmd.Parameters.AddWithValue("@firebaseUserId", firebaseUserId);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        UserProfile userProfile = null;
+                        while (reader.Read())
+                        {
+                            if (userProfile == null)
+                            {
+                                userProfile = new UserProfile
+                                {
+                                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                    FirebaseUserId = reader.GetString(reader.GetOrdinal("FirebaseUserId")),
+                                    FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                    LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                    Email = reader.GetString(reader.GetOrdinal("Email")),
+                                    Address = reader.GetString(reader.GetOrdinal("Address")),
+                                    PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber")),
+                                    IsAdmin = reader.GetInt32(reader.GetOrdinal("IsAdmin")),
+                                    //StudentId = reader.GetInt32(reader.GetOrdinal("StudentId")),
+
+                                };
+                            }
+                        }
+                        return userProfile;
+                    }
+                }
+            }
+        }
+
+        public void UpdateUserProfile(UserProfile user)
             {
                 using (SqlConnection conn = Connection)
                 {
