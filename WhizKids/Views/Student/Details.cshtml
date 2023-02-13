@@ -17,30 +17,57 @@
       <label class="font-weight-bold">LastName:</label>
       <span>@Model.Student.LastName</span>
     </div>
-    @*<div>
-      <label class="font-weight-bold">FirstName:</label>
-      <span>@Model.UserProfile.FirstName</span>
-    </div>
-    <div>
-      <label class="font-weight-bold">LastName:</label>
-      <span>@Model.UserProfile.LastName</span>
-    </div>*@
-    @*@foreach (UserProfile item in Model.UserProfile)
-        {
-            
-        <dt class = "col-sm-2">
-            @item.Id
-        </dt>
-        <dd class = "col-sm-10">
-            @item.FirstName
-        </dd>
-         
-        }*@
+   </section>
     
-  </section>
-
-  <hr class="mt-5" />
+    <hr class="mt-5" />
   <div class="clearfix"></div>
+
+  <div class="row">
+    <section class="col-8 container mt-5">
+      <h1 class="text-left">UserProfiles</h1>
+
+      <div class="row">
+        @foreach (UserProfile userProfile in Model.UserProfiles) {
+        <div class="card m-4" style="width: 18rem;">
+         @* @if (String.IsNullOrEmpty(userProfile.ImageUrl)) {
+          <img
+            src="https://cdn.pixabay.com/photo/2018/08/15/13/12/userProfile-3608037_960_720.jpg"
+            class="card-img-top"
+            alt="WhizKids"
+          />
+          } else {
+          <img src="@userProfile.ImageUrl" class="card-img-top" alt="WhizKids" />
+          }*@
+          <div class="card-body">
+            <div>
+              <label class="font-weight-bold">Name:</label>
+              <span>@userProfile.FirstName</span>
+            </div>
+            <div>
+              <label class="font-weight-bold">Breed:</label>
+              <span>@userProfile.LastName</span>
+            </div>
+            <div>
+              <label class="font-weight-bold">Notes:</label>
+              <p>@userProfile.Address</p>
+            </div>
+            <div>
+              <label class="font-weight-bold">Notes:</label>
+              <p>@userProfile.PhoneNumber</p>
+            </div>
+            <div>
+              <label class="font-weight-bold">Notes:</label>
+              <p>@userProfile.Email</p>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+    </section>
+
+    
+  </div>
+</div>
 
   
    

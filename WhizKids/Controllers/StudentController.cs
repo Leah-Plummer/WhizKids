@@ -31,6 +31,7 @@ namespace WhizKids.Controllers
         {
             
             Student student = _studentRepo.GetStudentById(id);
+            List<UserProfile> userProfiles = _userProfileRepo.GetUserProfilesByStudentId(student.Id);
 
             if (student == null)
             {
@@ -40,7 +41,8 @@ namespace WhizKids.Controllers
             StudentProfileViewModel spvm = new StudentProfileViewModel()
             {
                 
-                Student = student
+                Student = student,
+                UserProfiles = userProfiles,
             };
 
             return View(spvm);

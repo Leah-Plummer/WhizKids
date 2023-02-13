@@ -226,7 +226,7 @@ namespace WhizKids.Repositories
                 }
             }
 
-        public List<UserProfile> GetUserProfilesById(int userProfileId)
+        public List<UserProfile> GetUserProfilesByStudentId(int studentId)
         {
             using (SqlConnection conn = Connection)
             {
@@ -238,21 +238,21 @@ namespace WhizKids.Repositories
                 SELECT Id AS UserProfileId, FirebaseUserId, FirstName, LastName, Email, Address, PhoneNumber, IsAdmin, StudentId
                            FROM UserProfile 
                            
-                           WHERE Id = @id";
+                           WHERE StudentId = @studentId";
                     
 
-                    cmd.Parameters.AddWithValue("@userProfileId", userProfileId);
+                    cmd.Parameters.AddWithValue("@studentId", studentId);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
 
-                        List<UserProfile> users = new List<UserProfile>();
+                        List<UserProfile> userProfiles = new List<UserProfile>();
 
                         while (reader.Read())
                         {
-                            UserProfile user = new UserProfile()
+                            UserProfile userProfile = new UserProfile()
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                Id = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
                                 FirebaseUserId = reader.GetString(reader.GetOrdinal("FirebaseUserId")),
                                 FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
                                 LastName = reader.GetString(reader.GetOrdinal("LastName")),
@@ -263,10 +263,10 @@ namespace WhizKids.Repositories
                                 StudentId = reader.GetInt32(reader.GetOrdinal("StudentId")),
                             };                           
 
-                            users.Add(user);
+                            userProfiles.Add(userProfile);
                         }
 
-                        return users;
+                        return userProfiles;
                     }
                 }
             }

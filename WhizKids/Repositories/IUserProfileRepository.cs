@@ -11,7 +11,7 @@ namespace WhizKids.Repositories
         void UpdateUserProfile(UserProfile user);
         void DeleteUserProfile(int id);
         UserProfile GetByFirebaseUserId(string firebaseUserId);
-        List<UserProfile> GetUserProfilesById(int id);
+        List<UserProfile> GetUserProfilesByStudentId(int studentId);
 
     }
 }
