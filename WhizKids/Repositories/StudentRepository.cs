@@ -133,7 +133,7 @@ namespace WhizKids.Repositories
                             SET 
                                 FirstName = @firstName,
                                 LastName = @lastName,
-                                Enrolled = @enrolled, 
+                                Enrolled = @enrolled 
                             WHERE Id = @id";
 
                     cmd.Parameters.AddWithValue("@firstName", student.FirstName);
