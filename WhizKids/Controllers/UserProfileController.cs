@@ -10,9 +10,11 @@ namespace WhizKids.Controllers
     {
 
         private readonly IUserProfileRepository _userRepo;
-        public UserProfileController(IUserProfileRepository userRepository)
+        private readonly IStudentRepository _studentRepo;
+        public UserProfileController(IUserProfileRepository userRepository, IStudentRepository studentRepository)
         {
             _userRepo = userRepository;
+            _studentRepo = studentRepository;
         }
 
         // GET: UserProfiles

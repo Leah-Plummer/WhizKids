@@ -7,5 +7,6 @@ namespace WhizKids.Models.ViewModels
     {
         public UserProfile UserProfile { get; set; }
         public Student Student { get; set; }
+        public List<UserProfile> UserProfiles { get; set; }
     }
 }
