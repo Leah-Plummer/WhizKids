@@ -30,8 +30,8 @@ namespace WhizKids.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                                        SELECT Id, FirebaseUserId, FirstName, LastName, PhoneNumber, Address, IsAdmin
-                                        FROM UserProfile
+                                    SELECT Id, FirebaseUserId, FirstName, LastName, Email, Address, PhoneNumber, IsAdmin, StudentId
+                                    FROM UserProfile 
                     ";
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -91,7 +91,7 @@ namespace WhizKids.Repositories
                                         Address = reader.GetString(reader.GetOrdinal("Address")),
                                         PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber")),
                                         IsAdmin = reader.GetInt32(reader.GetOrdinal("IsAdmin")),
-                                        //StudentId = reader.GetInt32(reader.GetOrdinal("StudentId")),
+                                        StudentId = reader.GetInt32(reader.GetOrdinal("StudentId")),
 
                                     };
                                 }
@@ -110,18 +110,20 @@ namespace WhizKids.Repositories
                     using (SqlCommand cmd = conn.CreateCommand())
                     {
                         cmd.CommandText = @"
-                            INSERT INTO UserProfile (FirebaseUserId, FirstName, LastName, PhoneNumber, Address, IsAdmin)
+                            INSERT INTO UserProfile (Id, FirebaseUserId, FirstName, LastName, Email, Address, PhoneNumber, IsAdmin, StudentId)
                             OUTPUT INSERTED.ID 
-                            VALUES (@firebaseuserid, @firstname, @lastname, @phonenumber, @address, @isadmin)";
+                            VALUES (@firebaseuserid, @firstname, @lastname, @email, @address, @phonenumber, @isadmin, @studentId)";
 
                         cmd.Parameters.AddWithValue("@firebaseuserid", user.FirebaseUserId);
                         cmd.Parameters.AddWithValue("@firstname", user.FirstName);
                         cmd.Parameters.AddWithValue("@lastname", user.LastName);
-                        cmd.Parameters.AddWithValue("@phonenumber", user.PhoneNumber);
+                        cmd.Parameters.AddWithValue("@email", user.Email);
                         cmd.Parameters.AddWithValue("@address", user.Address);
+                        cmd.Parameters.AddWithValue("@phonenumber", user.PhoneNumber);
                         cmd.Parameters.AddWithValue("@isadmin", user.IsAdmin);
+                        cmd.Parameters.AddWithValue("@studentId", user.StudentId);
 
-                        int id = (int)cmd.ExecuteScalar();
+                    int id = (int)cmd.ExecuteScalar();
 
                         user.Id = id;
                     }
@@ -159,7 +161,7 @@ namespace WhizKids.Repositories
                                     Address = reader.GetString(reader.GetOrdinal("Address")),
                                     PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber")),
                                     IsAdmin = reader.GetInt32(reader.GetOrdinal("IsAdmin")),
-                                    //StudentId = reader.GetInt32(reader.GetOrdinal("StudentId")),
+                                    StudentId = reader.GetInt32(reader.GetOrdinal("StudentId")),
 
                                 };
                             }
@@ -181,14 +183,14 @@ namespace WhizKids.Repositories
                         cmd.CommandText = @"
                             UPDATE UserProfile
                             SET 
-                                FirebaseUserId = @firebaseuserid
+                                FirebaseUserId = @firebaseuserid,
                                 FirstName = @firstname,
-                                LastName = @lastname
+                                LastName = @lastname,
                                 Address = @address, 
                                 PhoneNumber = @phonenumber,
                                 IsAdmin = @isadmin,
                                 StudentId = @studentid
-                            WHERE Id = @id";
+                                WHERE Id = @id";
 
                         cmd.Parameters.AddWithValue("@firebaseuserid", user.FirebaseUserId);
                         cmd.Parameters.AddWithValue("@firstname", user.FirstName);
@@ -196,7 +198,7 @@ namespace WhizKids.Repositories
                         cmd.Parameters.AddWithValue("@address", user.Address);
                         cmd.Parameters.AddWithValue("@phonenumber", user.PhoneNumber);
                         cmd.Parameters.AddWithValue("@isadmin", user.IsAdmin);
-                    cmd.Parameters.AddWithValue("@studentid", user.StudentId);
+                        cmd.Parameters.AddWithValue("@studentid", user.StudentId);
                         cmd.Parameters.AddWithValue("@id", user.Id);
 
                         cmd.ExecuteNonQuery();
@@ -233,7 +235,7 @@ namespace WhizKids.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                SELECT Id, FirebaseUserId, FirstName, LastName, Email, Address, PhoneNumber, IsAdmin, StudentId
+                SELECT Id AS UserProfileId, FirebaseUserId, FirstName, LastName, Email, Address, PhoneNumber, IsAdmin, StudentId
                            FROM UserProfile 
                            
                            WHERE Id = @id";
@@ -296,9 +298,10 @@ namespace WhizKids.Repositories
                                 FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
                                 LastName = reader.GetString(reader.GetOrdinal("LastName")),
                                 Email = reader.GetString(reader.GetOrdinal("Email")),
-                                PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber")),
                                 Address = reader.GetString(reader.GetOrdinal("Address")),
+                                PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber")),
                                 IsAdmin = reader.GetInt32(reader.GetOrdinal("IsAdmin")),
+                                StudentId = reader.GetInt32(reader.GetOrdinal("StudentId")),
                             };
 
                             users.Add(user);
