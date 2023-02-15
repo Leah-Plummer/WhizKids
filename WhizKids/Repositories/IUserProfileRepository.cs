@@ -7,7 +7,7 @@ namespace WhizKids.Repositories
     {
         List<UserProfile> GetAllUsersProfiles();
         UserProfile GetUserProfileById(int id);
-        void AddUserProfile(UserProfile user);
+        void AddUserProfile(UserProfile user, UserStudent userStudent);
         void UpdateUserProfile(UserProfile user);
         void DeleteUserProfile(int id);
         UserProfile GetByFirebaseUserId(string firebaseUserId);

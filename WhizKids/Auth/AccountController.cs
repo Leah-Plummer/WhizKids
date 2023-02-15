@@ -76,6 +76,12 @@ namespace WhizKids.Auth
                 return View(registration);
             }
 
+            var newUserStudent = new UserStudent
+            {
+                
+                StudentId = registration.StudentId,
+            };
+
             var newUserProfile = new UserProfile
             {
 
@@ -88,7 +94,7 @@ namespace WhizKids.Auth
                 IsAdmin = 0,
                 StudentId = registration.StudentId,
             };
-            _userProfileRepository.AddUserProfile(newUserProfile);
+            _userProfileRepository.AddUserProfile(newUserProfile, newUserStudent);
 
             await LoginToApp(newUserProfile);
 

@@ -25,6 +25,7 @@ namespace WhizKids.Auth.Models
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
         public int StudentId { get; set; }
+        public int UserProfileId { get; set; }
         public UserProfile UserProfile { get; set; }
         public Student Student { get; set; }
         public List<Student> Students { get; set; }

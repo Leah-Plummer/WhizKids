@@ -72,8 +72,15 @@ namespace WhizKids.Controllers
                 return View(registration);
             }
 
+            var newUserStudent = new UserStudent
+            {
+                UserProfileId = registration.UserProfileId,
+                StudentId = registration.StudentId,
+            };
+
             var newUserProfile = new UserProfile
             {
+
                 Email = registration.Email,
                 FirebaseUserId = fbUser.FirebaseUserId,
                 FirstName = registration.FirstName,
@@ -82,9 +89,8 @@ namespace WhizKids.Controllers
                 PhoneNumber = registration.PhoneNumber,
                 IsAdmin = 0,
                 StudentId = registration.StudentId,
-
             };
-            _userProfileRepository.AddUserProfile(newUserProfile);
+            _userProfileRepository.AddUserProfile(newUserProfile, newUserStudent);
 
 
 
