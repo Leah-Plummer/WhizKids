@@ -78,8 +78,15 @@ namespace WhizKids.Auth
 
             var newUserProfile = new UserProfile
             {
-                Email = fbUser.Email,
+
+                Email = registration.Email,
                 FirebaseUserId = fbUser.FirebaseUserId,
+                FirstName = registration.FirstName,
+                LastName = registration.LastName,
+                Address = registration.Address,
+                PhoneNumber = registration.PhoneNumber,
+                IsAdmin = 0,
+                StudentId = registration.StudentId,
             };
             _userProfileRepository.AddUserProfile(newUserProfile);
 
