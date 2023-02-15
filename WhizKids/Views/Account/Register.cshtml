@@ -1,5 +1,8 @@
-﻿@model WhizKids.Auth.Models.Registration
+﻿
+@using WhizKids.Repositories; 
 
+@model WhizKids.Auth.Models.Registration
+@inject IStudentRepository _studentRepo 
 @{
     ViewData["Title"] = "Register";
 }
@@ -26,6 +29,38 @@
                 <input asp-for="ConfirmPassword" type="password" class="form-control" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" type="firstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" type="lastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" type="address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" type="phoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                    <label asp-for="StudentId" class="control-label"></label>
+                    <select asp-for="StudentId" class="form-control">
+                        @foreach (var student in _studentRepo.GetAllStudents())
+                        {
+                            <option value="@student.Id">@student.FirstName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="@Model.UserProfile.StudentId" class="text-danger"></span>
+                </div>
+            
             <div class="form-group">
                 <input type="submit" value="Register" class="btn btn-primary" />
             </div>
