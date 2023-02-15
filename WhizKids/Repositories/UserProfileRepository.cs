@@ -110,7 +110,7 @@ namespace WhizKids.Repositories
                     using (SqlCommand cmd = conn.CreateCommand())
                     {
                         cmd.CommandText = @"
-                            INSERT INTO UserProfile (Id, FirebaseUserId, FirstName, LastName, Email, Address, PhoneNumber, IsAdmin, StudentId)
+                            INSERT INTO UserProfile (FirebaseUserId, FirstName, LastName, Email, Address, PhoneNumber, IsAdmin, StudentId)
                             OUTPUT INSERTED.ID 
                             VALUES (@firebaseuserid, @firstname, @lastname, @email, @address, @phonenumber, @isadmin, @studentId)";
 
