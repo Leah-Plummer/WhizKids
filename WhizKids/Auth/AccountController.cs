@@ -98,10 +98,8 @@ namespace WhizKids.Auth
                 StudentId = registration.StudentId,
             };
             _userProfileRepository.AddUserProfile(newUserProfile, newUserStudent);
-            //UserStudent userStudent = new UserStudent();
-            //userStudent.UserProfileId = registration.UserProfileId;
-            //userStudent.StudentId = registration.StudentId;
-            //_userStudentRepository.AddUserStudent(userStudent);
+            _userStudentRepository.AddUserStudent(registration.StudentId, newUserProfile.Id);
+            
 
             await LoginToApp(newUserProfile);
 

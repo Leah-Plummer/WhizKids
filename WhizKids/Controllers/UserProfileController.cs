@@ -74,11 +74,7 @@ namespace WhizKids.Controllers
                 return View(registration);
             }
 
-            var newUserStudent = new UserStudent
-            {
-                UserProfileId = registration.UserProfileId,
-                StudentId = registration.StudentId,
-            };
+            
 
             var newUserProfile = new UserProfile
             {
@@ -95,8 +91,8 @@ namespace WhizKids.Controllers
             UserStudent userStudent = new UserStudent();
             userStudent.UserProfileId = registration.UserProfileId;
             userStudent.StudentId = registration.StudentId;
-            _userProfileRepository.AddUserProfile(newUserProfile, newUserStudent);
-            _userStudentRepository.AddUserStudent(userStudent);
+            _userProfileRepository.AddUserProfile(newUserProfile, userStudent);
+            _userStudentRepository.AddUserStudent(registration.StudentId, newUserProfile.Id);
 
 
 

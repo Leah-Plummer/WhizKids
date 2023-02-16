@@ -1,0 +1,3 @@
+﻿USE WhizKids
+GO
+ALTER TABLE MESSAGES ALTER COLUMN CreateDateTime DateTime;

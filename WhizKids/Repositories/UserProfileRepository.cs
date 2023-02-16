@@ -130,10 +130,10 @@ namespace WhizKids.Repositories
 
 
                     int userId = (int)cmd.ExecuteScalar();                    
-                    //int userStudentId = userId++;
-                    int userProfileId = userId;
+                    
+                    
 
-                    userStudent.UserProfileId = userProfileId;
+                    
                     user.Id = userId;
                     //userStudent.Id = userStudentId;
                 }

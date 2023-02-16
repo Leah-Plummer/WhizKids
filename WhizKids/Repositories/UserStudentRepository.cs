@@ -94,7 +94,7 @@ namespace WhizKids.Repositories
 
 
 
-        public void AddUserStudent(UserStudent userStudent)
+        public void AddUserStudent(int studentId, int userProfileId)
         {
             using (SqlConnection conn = Connection)
             {
@@ -107,16 +107,17 @@ namespace WhizKids.Repositories
                     VALUES (@userProfileId, @studentId);
                 ";
 
-                    cmd.Parameters.AddWithValue("@userProfileId", userStudent.UserProfileId);
-                    cmd.Parameters.AddWithValue("@studentId", userStudent.StudentId);
+                    cmd.Parameters.AddWithValue("@userProfileId", userProfileId);
+                    cmd.Parameters.AddWithValue("@studentId", studentId);
                     int id = (int)cmd.ExecuteScalar();
 
-                    userStudent.Id = id;
+
+                    
                 }
             }
         }
 
-        public void UpdateUserStudent(UserStudent userStudent)
+        public void UpdateUserStudent(int studentId, int userProfileId)
         {
             using (SqlConnection conn = Connection)
             {
@@ -131,9 +132,9 @@ namespace WhizKids.Repositories
                                 StudentId = @studenteId
                             WHERE Id = @id";
 
-                    cmd.Parameters.AddWithValue("@userProfileId", userStudent.UserProfileId);
-                    cmd.Parameters.AddWithValue("@studentId", userStudent.StudentId);
-                    cmd.Parameters.AddWithValue("@id", userStudent.Id);
+                    cmd.Parameters.AddWithValue("@userProfileId", userProfileId);
+                    cmd.Parameters.AddWithValue("@studentId", studentId);
+                    
 
                     cmd.ExecuteNonQuery();
                 }

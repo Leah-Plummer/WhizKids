@@ -30,8 +30,8 @@ namespace WhizKids.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                                        SELECT Id, StudentId, UserProfileId, CreateTime, Body
-                                        FROM Message
+                                        SELECT Id, StudentId, UserProfileId, CreateDateTime, Body
+                                        FROM Messages
                     ";
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -44,7 +44,7 @@ namespace WhizKids.Repositories
                                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
                                 StudentId = reader.GetInt32(reader.GetOrdinal("StudentId")),
                                 UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
-                                CreateTime = reader.GetInt32(reader.GetOrdinal("CreateTime")),
+                                CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
                                 Body = reader.GetString(reader.GetOrdinal("Body")),
                             };
 
@@ -65,9 +65,9 @@ namespace WhizKids.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                                        SELECT Id, StudentId, UserProfileId, CreateTime, Body
-                                        FROM Message
-                                        Where id = @id
+                                        SELECT Id, StudentId, UserProfileId, CreateDateTime, Body
+                                        FROM Messages
+                                        Where StudentId = @id
                     ";
                     cmd.Parameters.AddWithValue("@id", id);
 
@@ -81,7 +81,7 @@ namespace WhizKids.Repositories
                                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
                                 StudentId = reader.GetInt32(reader.GetOrdinal("StudentId")),
                                 UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
-                                CreateTime = reader.GetInt32(reader.GetOrdinal("CreateTime")),
+                                CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
                                 Body = reader.GetString(reader.GetOrdinal("Body")),
                             };
 
@@ -103,8 +103,8 @@ namespace WhizKids.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                                        SELECT m.Id, m.StudentId, m.UserProfileId, m.CreateTime, m.Body
-                                        FROM Message m
+                                        SELECT m.Id, m.StudentId, m.UserProfileId, m.CreateDateTime, m.Body
+                                        FROM Messages m
                                         WHERE Id = @id";
 
                     cmd.Parameters.AddWithValue("@id", id);
@@ -118,7 +118,7 @@ namespace WhizKids.Repositories
                                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
                                 StudentId = reader.GetInt32(reader.GetOrdinal("StudentId")),
                                 UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
-                                CreateTime = reader.GetInt32(reader.GetOrdinal("CreateTime")),
+                                CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
                                 Body = reader.GetString(reader.GetOrdinal("Body"))
                             };
 
@@ -143,14 +143,14 @@ namespace WhizKids.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    INSERT INTO Message (StudentId, UserProfileId, CreateTime, Body)
+                    INSERT INTO Messages (StudentId, UserProfileId, CreateDateTime, Body)
                     OUTPUT INSERTED.ID
                     VALUES (@studentId, @userProfileId, @createTime, @body);
                 ";
 
                     cmd.Parameters.AddWithValue("@studentId", message.StudentId);
                     cmd.Parameters.AddWithValue("@userProfileId", message.UserProfileId);
-                    cmd.Parameters.AddWithValue("@createTime", message.CreateTime);
+                    cmd.Parameters.AddWithValue("@createDateTime", message.CreateDateTime);
                     cmd.Parameters.AddWithValue("@body", message.Body);
 
                     int id = (int)cmd.ExecuteScalar();
@@ -169,17 +169,17 @@ namespace WhizKids.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                            UPDATE Message
+                            UPDATE Messages
                             SET 
                                 StudentId = @studenteId
                                 UserProfileId = @userProfileId
-                                CreateTime = @createTime
+                                CreateDateTime = @createDateTime
                                 Body = @body
                             WHERE Id = @id";
 
                     cmd.Parameters.AddWithValue("@studentId", message.StudentId);
                     cmd.Parameters.AddWithValue("@userProfileId", message.UserProfileId);
-                    cmd.Parameters.AddWithValue("@createTime", message.CreateTime);
+                    cmd.Parameters.AddWithValue("@createDateTime", message.CreateDateTime);
                     cmd.Parameters.AddWithValue("@body", message.Body);
                     cmd.Parameters.AddWithValue("@id", message.Id);
 
@@ -197,7 +197,7 @@ namespace WhizKids.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                            DELETE FROM Message
+                            DELETE FROM Messages
                             WHERE Id = @id
                         ";
 

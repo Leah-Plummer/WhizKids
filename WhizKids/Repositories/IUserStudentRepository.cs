@@ -7,8 +7,8 @@ namespace WhizKids.Repositories
     {
         List<UserStudent> GetAllUserStudents();
         UserStudent GetUserStudentById(int id);
-        void AddUserStudent(UserStudent userStudent);
-        void UpdateUserStudent(UserStudent userStudent);
+        void AddUserStudent(int studentId, int userProfileId);
+        //void UpdateUserStudent(UserStudent userStudent);
         void DeleteUserStudent(int id);
     }
 }

@@ -19,9 +19,9 @@ namespace WhizKids.Controllers
         }
 
         // GET: Messages
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            List<Message> messages = _messageRepo.GetAllMessages();
+            List<Message> messages = _messageRepo.GetAllMessagesById(id);
 
             return View(messages);
         }
