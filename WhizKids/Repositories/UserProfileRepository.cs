@@ -115,10 +115,7 @@ namespace WhizKids.Repositories
                             OUTPUT INSERTED.ID 
                             VALUES (@firebaseuserid, @firstname, @lastname, @email, @address, @phonenumber, @isadmin)
 
-                            INSERT INTO UserStudent  (StudentId)
-                            OUTPUT INSERTED.ID
-                            OUTPUT INSERTED.USERPROFILEID
-                            VALUES (@studentid)
+                            
                             ";
 
                         cmd.Parameters.AddWithValue("@firebaseuserid", user.FirebaseUserId);
@@ -133,13 +130,13 @@ namespace WhizKids.Repositories
 
 
                     int userId = (int)cmd.ExecuteScalar();                    
-                    int userStudentId = userId++;
+                    //int userStudentId = userId++;
                     int userProfileId = userId;
 
                     userStudent.UserProfileId = userProfileId;
                     user.Id = userId;
-                    userStudent.Id = userStudentId; 
-                    }
+                    //userStudent.Id = userStudentId;
+                }
                 }
             }
         public UserProfile GetByFirebaseUserId(string firebaseUserId)

@@ -33,6 +33,9 @@ namespace WhizKids
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             services.AddTransient<IStudentRepository, StudentRepository>();
             services.AddTransient<IFirebaseAuthService, FirebaseAuthService>();
+            services.AddTransient<IUserStudentRepository, UserStudentRepository>();
+            services.AddTransient<IMessageRepository, MessageRepository>();
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => options.Cookie.SameSite = SameSiteMode.Strict);
 

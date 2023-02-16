@@ -12,10 +12,12 @@ namespace WhizKids.Controllers
 
         private readonly IStudentRepository _studentRepo;
         private readonly IUserProfileRepository _userProfileRepo;
-        public StudentController(IStudentRepository studentRepository, IUserProfileRepository userProfileRepository)
+        private readonly IMessageRepository _messageRepo;
+        public StudentController(IStudentRepository studentRepository, IUserProfileRepository userProfileRepository, IMessageRepository messageRepo)
         {
             _studentRepo = studentRepository;
             _userProfileRepo = userProfileRepository;
+            _messageRepo = messageRepo;
         }
 
         // GET: Students
@@ -24,6 +26,13 @@ namespace WhizKids.Controllers
             List<Student> students = _studentRepo.GetAllStudents();
 
             return View(students);
+        }
+
+        public ActionResult Messages(int id)
+        {
+            List<Message> messages = _messageRepo.GetAllMessagesById(id);
+
+            return View(messages);
         }
 
         // GET:Students/Details/5
