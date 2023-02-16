@@ -15,13 +15,15 @@ namespace WhizKids.Controllers
         private readonly IUserProfileRepository _userProfileRepository;
         private readonly IUserProfileRepository _userRepo;
         private readonly IStudentRepository _studentRepo;
-        public UserProfileController(IUserProfileRepository userRepository, IStudentRepository studentRepository, IFirebaseAuthService firebaseAuthService, IUserProfileRepository userProfileRepository)
+        private readonly IUserStudentRepository _userStudentRepository;
+        public UserProfileController(IUserProfileRepository userRepository, IStudentRepository studentRepository,
+            IFirebaseAuthService firebaseAuthService, IUserProfileRepository userProfileRepository, IUserStudentRepository userStudentRepository)
         {
             _userRepo = userRepository;
             _studentRepo = studentRepository;
             _userProfileRepository = userProfileRepository;
             _firebaseAuthService = firebaseAuthService;
-
+            _userStudentRepository = userStudentRepository;
         }
 
         // GET: UserProfiles
@@ -72,11 +74,7 @@ namespace WhizKids.Controllers
                 return View(registration);
             }
 
-            var newUserStudent = new UserStudent
-            {
-                UserProfileId = registration.UserProfileId,
-                StudentId = registration.StudentId,
-            };
+            
 
             var newUserProfile = new UserProfile
             {
@@ -90,7 +88,11 @@ namespace WhizKids.Controllers
                 IsAdmin = 0,
                 StudentId = registration.StudentId,
             };
-            _userProfileRepository.AddUserProfile(newUserProfile, newUserStudent);
+            UserStudent userStudent = new UserStudent();
+            userStudent.UserProfileId = registration.UserProfileId;
+            userStudent.StudentId = registration.StudentId;
+            _userProfileRepository.AddUserProfile(newUserProfile, userStudent);
+            _userStudentRepository.AddUserStudent(registration.StudentId, newUserProfile.Id);
 
 
 

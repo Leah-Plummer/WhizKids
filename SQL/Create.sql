@@ -50,7 +50,7 @@ CREATE TABLE UserStudent (
 CREATE TABLE [Messages] (
     [Id] INTEGER PRIMARY KEY IDENTITY(1, 1),
 	[StudentId] INTEGER NOT NULL,
+	[UserProfileId] INTEGER NOT NULL,
 	[CreateDateTime] DATETIME NOT NULL,
-    [Message] nvarchar(255) NOT NULL,
-	CONSTRAINT FK_Messages_UserStudent FOREIGN KEY (StudentId) REFERENCES [UserStudent](Id),
+    [Body] nvarchar(255) NOT NULL,
 );

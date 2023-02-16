@@ -15,11 +15,14 @@ namespace WhizKids.Auth
     {
         private readonly IFirebaseAuthService _firebaseAuthService;
         private readonly IUserProfileRepository _userProfileRepository;
+        private readonly IUserStudentRepository _userStudentRepository;
 
-        public AccountController(IFirebaseAuthService firebaseAuthService, IUserProfileRepository userProfileRepository)
+
+        public AccountController(IFirebaseAuthService firebaseAuthService, IUserProfileRepository userProfileRepository, IUserStudentRepository userStudentRepository)
         {
             _userProfileRepository = userProfileRepository;
             _firebaseAuthService = firebaseAuthService;
+            _userStudentRepository = userStudentRepository;
         }
 
         public IActionResult Login()
@@ -95,6 +98,8 @@ namespace WhizKids.Auth
                 StudentId = registration.StudentId,
             };
             _userProfileRepository.AddUserProfile(newUserProfile, newUserStudent);
+            _userStudentRepository.AddUserStudent(registration.StudentId, newUserProfile.Id);
+            
 
             await LoginToApp(newUserProfile);
 

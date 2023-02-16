@@ -1,0 +1,3 @@
+﻿USE WHIZKIDS
+GO
+ALTER TABLE Messages ADD UserProfileId INT;
