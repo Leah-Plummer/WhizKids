@@ -116,7 +116,8 @@ namespace WhizKids.Repositories
                             VALUES (@firebaseuserid, @firstname, @lastname, @email, @address, @phonenumber, @isadmin)
 
                             INSERT INTO UserStudent  (StudentId)
-                            OUTPUT INSERTED.ID USERPROFILEID
+                            OUTPUT INSERTED.ID
+                            OUTPUT INSERTED.USERPROFILEID
                             VALUES (@studentid)
                             ";
 
@@ -132,7 +133,7 @@ namespace WhizKids.Repositories
 
 
                     int userId = (int)cmd.ExecuteScalar();                    
-                    int userStudentId = (int)cmd.ExecuteScalar();
+                    int userStudentId = userId++;
                     int userProfileId = userId;
 
                     userStudent.UserProfileId = userProfileId;
